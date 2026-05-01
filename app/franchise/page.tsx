@@ -1,0 +1,3 @@
+export default function FranchisePage() {
+  return <div className="py-10"><h1 className="font-serif text-5xl">Start Your Own Maharaj Chai</h1><form className="mt-6 grid max-w-xl gap-3"><input placeholder="Full Name" className="rounded-xl border bg-transparent p-3"/><input placeholder="City" className="rounded-xl border bg-transparent p-3"/><input placeholder="Phone" className="rounded-xl border bg-transparent p-3"/><textarea placeholder="Why Maharaj?" className="rounded-xl border bg-transparent p-3" rows={4}/><button className="rounded-full bg-saffron py-3 font-semibold text-black">Submit Lead</button></form></div>;
+}

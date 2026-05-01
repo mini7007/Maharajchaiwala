@@ -1,0 +1,9 @@
+{
+  "name": "Maharaj Chai Wala",
+  "short_name": "Maharaj Chai",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#f5a623",
+  "icons": []
+}
