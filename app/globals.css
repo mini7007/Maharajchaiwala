@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+html, body { margin: 0; padding: 0; }
+body { @apply bg-cream text-zinc-900 dark:bg-zinc-950 dark:text-cream font-sans; }
+
+.chai-glass { backdrop-filter: blur(14px); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); }
+.steam::before, .steam::after {
+  content: ''; position: absolute; width: 6px; height: 80px; background: radial-gradient(circle, rgba(255,255,255,0.4), transparent 70%);
+  animation: steam 2.8s infinite ease-in-out;
+}
+.steam::after { left: 24px; animation-delay: 1.1s; }
+@keyframes steam { 0% { transform: translateY(22px) scale(1); opacity: 0; } 40% { opacity: .7; } 100% { transform: translateY(-34px) scale(1.6); opacity: 0; } }
