@@ -36,3 +36,4 @@ body { @apply bg-cream text-zinc-900 dark:bg-zinc-950 dark:text-cream font-sans;
   background: linear-gradient(to bottom, #efbc7e, #be6e3e);
 }
 @keyframes bgShift { from { filter: saturate(1); } to { filter: saturate(1.15) brightness(1.05); } }
+@keyframes shimmer { from { transform: translateX(-40%); } to { transform: translateX(40%); } }

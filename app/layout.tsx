@@ -2,6 +2,7 @@ import './globals.css';
 import ThemeProvider from '@/components/theme-provider';
 import LayoutShell from '@/components/layout-shell';
 import PWARegister from '@/components/pwa-register';
+import GSAPProvider from '@/components/gsap-provider';
 
 export const metadata = {
   title: 'Maharaj Chai Wala | Har Ghoont Mein Maharaj',
@@ -12,7 +13,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <ThemeProvider><PWARegister /><LayoutShell>{children}</LayoutShell></ThemeProvider>
+        <ThemeProvider>
+          <PWARegister />
+          <GSAPProvider />
+          <LayoutShell>{children}</LayoutShell>
+        </ThemeProvider>
       </body>
     </html>
   );
