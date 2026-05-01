@@ -1,7 +1,7 @@
 'use client';
 import { FadeUp, ChaiLoader } from '@/components/motion';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 
 const StorySections = dynamic(() => import('@/components/story-sections'), { ssr: false });
