@@ -6,10 +6,33 @@
 html, body { margin: 0; padding: 0; }
 body { @apply bg-cream text-zinc-900 dark:bg-zinc-950 dark:text-cream font-sans; }
 
-.chai-glass { backdrop-filter: blur(14px); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); }
-.steam::before, .steam::after {
-  content: ''; position: absolute; width: 6px; height: 80px; background: radial-gradient(circle, rgba(255,255,255,0.4), transparent 70%);
-  animation: steam 2.8s infinite ease-in-out;
+.hero-bg {
+  background: radial-gradient(70% 70% at 72% 42%, rgba(217,114,50,0.2), transparent 68%), linear-gradient(130deg, rgba(28,16,8,0.96), rgba(56,29,16,0.92));
+  animation: bgShift 16s ease-in-out infinite alternate;
 }
-.steam::after { left: 24px; animation-delay: 1.1s; }
-@keyframes steam { 0% { transform: translateY(22px) scale(1); opacity: 0; } 40% { opacity: .7; } 100% { transform: translateY(-34px) scale(1.6); opacity: 0; } }
+.hero-noise {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0.18;
+  background-image: radial-gradient(rgba(255,255,255,.22) 0.5px, transparent 0.5px);
+  background-size: 3px 3px;
+  mix-blend-mode: soft-light;
+}
+.hero-glow {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  width: 260px; height: 260px; border-radius: 999px; pointer-events: none;
+  background: radial-gradient(circle, rgba(243,168,96,.35), rgba(243,168,96,0));
+}
+.chai-glass { backdrop-filter: blur(14px); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); }
+.steam-particle {
+  position: absolute; top: 84px; width: 12px; height: 44px; border-radius: 999px;
+  background: radial-gradient(circle at 50% 20%, rgba(255,255,255,.34), rgba(255,255,255,0));
+  filter: blur(0.4px);
+}
+.pour-stream {
+  position: absolute; left: 49.7%; top: -28px; width: 7px; height: 74px;
+  border-radius: 999px; background: linear-gradient(to bottom, rgba(234,178,113,.1), rgba(196,113,62,.8));
+}
+.droplet {
+  position: absolute; top: 24px; width: 5px; height: 10px; border-radius: 999px;
+  background: linear-gradient(to bottom, #efbc7e, #be6e3e);
+}
+@keyframes bgShift { from { filter: saturate(1); } to { filter: saturate(1.15) brightness(1.05); } }
