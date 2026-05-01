@@ -7,12 +7,15 @@ import dynamic from 'next/dynamic';
 const StorySections = dynamic(() => import('@/components/story-sections'), { ssr: false });
 
 export default function HomePage() {
-  const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Morning Chai Ritual' : hour < 18 ? 'Afternoon Energy Pour' : 'Evening Chai Mehfil';
+  console.log('[HomePage] render');
+  const [greeting, setGreeting] = useState('Chai Ritual');
   const [ctaBoost, setCtaBoost] = useState(false);
 
   useEffect(() => {
-    console.log('[HomePage] render complete');
+    const hour = new Date().getHours();
+    const nextGreeting = hour < 12 ? 'Morning Chai Ritual' : hour < 18 ? 'Afternoon Energy Pour' : 'Evening Chai Mehfil';
+    setGreeting(nextGreeting);
+    console.log('[HomePage] mounted');
   }, []);
 
   return (

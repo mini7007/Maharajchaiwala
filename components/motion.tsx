@@ -22,6 +22,7 @@ function useScrollTilt() {
 }
 
 export function ChaiLoader({ ctaBoost = false }: { ctaBoost?: boolean }) {
+  console.log('[ChaiLoader] render');
   const [fill, setFill] = useState(0);
   const [steamBoost, setSteamBoost] = useState(false);
   const [soundOn, setSoundOn] = useState(false);
@@ -48,16 +49,19 @@ export function ChaiLoader({ ctaBoost = false }: { ctaBoost?: boolean }) {
       Array.from({ length: 7 }).map((_, i) => ({
         id: i,
         left: 36 + i * 22 + (i % 2 ? 5 : -3),
-        delay: Math.random() * 2,
-        duration: 3 + Math.random() * 1.8,
-        scale: 0.7 + Math.random() * 0.55,
+        delay: i * 0.22,
+        duration: 3 + (i % 3) * 0.45,
+        scale: 0.78 + (i % 4) * 0.11,
       })),
     []
   );
 
   const playTap = () => {
+    if (typeof window === 'undefined') return;
     if (!soundOn) return;
-    const ctx = new AudioContext();
+    const AudioContextClass = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (!AudioContextClass) return;
+    const ctx = new AudioContextClass();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = 'triangle';
