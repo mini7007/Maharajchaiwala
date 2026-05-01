@@ -1,13 +1,10 @@
 'use client';
 import { FadeUp, ChaiLoader } from '@/components/motion';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 
-const StorySections = dynamic(() => import('@/components/story-sections'), {
-  ssr: false,
-  loading: () => <div className="rounded-2xl border border-amber-400/20 p-6">Loading immersive story…</div>,
-});
+const StorySections = dynamic(() => import('@/components/story-sections'), { ssr: false });
 
 export default function HomePage() {
   const hour = new Date().getHours();
@@ -23,9 +20,9 @@ export default function HomePage() {
       <section className="hero-bg relative grid items-center gap-8 overflow-hidden rounded-[2rem] p-5 md:grid-cols-2 md:gap-10 md:p-10">
         <FadeUp>
           <p className="text-saffron">{greeting}</p>
-          <h1 className="font-serif text-4xl leading-tight text-white sm:text-5xl md:text-7xl">Har Ghoont Mein Maharaj</h1>
+          <h1 className="font-serif text-5xl leading-tight text-white md:text-7xl">Har Ghoont Mein Maharaj</h1>
           <p className="mt-4 max-w-xl text-zinc-300">A cinematic PWA that lets you feel the aroma, warmth, and rhythm of Indian street chai culture.</p>
-          <div className="mt-8 flex flex-wrap gap-4" onMouseEnter={() => setCtaBoost(true)} onMouseLeave={() => setCtaBoost(false)}>
+          <div className="mt-8 flex gap-4" onMouseEnter={() => setCtaBoost(true)} onMouseLeave={() => setCtaBoost(false)}>
             <a href="/order" className="rounded-full bg-saffron px-6 py-3 font-semibold text-black">Order Now</a>
             <a href="/stores" className="rounded-full border px-6 py-3 text-white">Find Nearest Outlet</a>
           </div>
