@@ -1,37 +1,57 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function StorySections() {
   const scope = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((item) => {
-        gsap.fromTo(item, { y: 80, opacity: 0, filter: 'blur(8px)' }, {
-          y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.2,
-          scrollTrigger: { trigger: item, start: 'top 85%', end: 'bottom 45%' },
-        });
-      });
+    console.log('[StorySections] mounted');
+    if (typeof window === 'undefined') return;
+    let ctx: { revert: () => void } | null = null;
+    let isMounted = true;
 
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.chai-lab',
-          start: 'top top',
-          end: '+=2200',
-          pin: true,
-          scrub: 1,
-        },
-      });
-      timeline.to('.stage-1', { opacity: 1, scale: 1.03 }).to('.stage-1', { opacity: 0.15 })
-        .to('.stage-2', { opacity: 1, x: 0 }).to('.stage-2', { opacity: 0.2 })
-        .to('.stage-3', { opacity: 1, rotate: 0 }).to('.stage-3', { opacity: 0.25 })
-        .to('.stage-4', { opacity: 1, y: 0, scale: 1.06 });
+    (async () => {
+      try {
+        const gsapModule = await import('gsap');
+        const triggerModule = await import('gsap/ScrollTrigger');
+        if (!isMounted) return;
+        const gsap = gsapModule.default;
+        const ScrollTrigger = triggerModule.ScrollTrigger;
+        gsap.registerPlugin(ScrollTrigger);
 
-      gsap.to('.parallax-bg', { yPercent: -20, ease: 'none', scrollTrigger: { trigger: '.parallax-wrap', scrub: true } });
-    }, scope);
-    return () => ctx.revert();
+        ctx = gsap.context(() => {
+          gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((item) => {
+            gsap.fromTo(item, { y: 80, opacity: 0, filter: 'blur(8px)' }, {
+              y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.2,
+              scrollTrigger: { trigger: item, start: 'top 85%', end: 'bottom 45%' },
+            });
+          });
+
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: '.chai-lab',
+              start: 'top top',
+              end: '+=2200',
+              pin: true,
+              scrub: 1,
+            },
+          });
+          timeline.to('.stage-1', { opacity: 1, scale: 1.03 }).to('.stage-1', { opacity: 0.15 })
+            .to('.stage-2', { opacity: 1, x: 0 }).to('.stage-2', { opacity: 0.2 })
+            .to('.stage-3', { opacity: 1, rotate: 0 }).to('.stage-3', { opacity: 0.25 })
+            .to('.stage-4', { opacity: 1, y: 0, scale: 1.06 });
+
+          gsap.to('.parallax-bg', { yPercent: -20, ease: 'none', scrollTrigger: { trigger: '.parallax-wrap', scrub: true } });
+        }, scope);
+      } catch (error) {
+        console.log('[StorySections] animation init failed, rendering static UI', error);
+      }
+    })();
+
+    return () => {
+      isMounted = false;
+      ctx?.revert();
+    };
   }, []);
 
   return (
